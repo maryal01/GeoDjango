@@ -1,8 +1,3 @@
-**Geodjango Series 1**
-
-This is a geodjango tutorial project(Agricom) developed under the Geodjango Tutorial Series at <a href="https://www.youtube.com/playlist?list=PL7amXK4vKqATa_KrfQ3_tEF_ywAgAqWeJ"> This Playlist</a> . 
-It uses the Geodjango module in Django to include the mapping aspect of the project. This is the entire project covered in all the episodes. 
-
 ## Set Up
 To set up the project, follow the steps;
 ```
@@ -37,5 +32,3 @@ python manage.py migrate
 python manage.py runserver
 on browser: localhost:8000
 ```
-## Support
-For any issue with the application, drop a message via swanjohi@lifeingis.com or join the Telegram Group at https://t.me/joinchat/D6VfOBIfhHh4i8yZ19sqbQ

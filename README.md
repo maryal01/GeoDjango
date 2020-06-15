@@ -19,8 +19,8 @@ git clone https://github.com/maryal01/alva_geodjango.git
 ## Setting up DB
 ```
 pg_ctl -D /usr/local/var/postgres start && brew services start postgresql
-createuser alva --createdb
-createdb agricom -U alva
+createuser postgres --createdb
+createdb agricom -U postgres
 
 #Enable PostGIS
 psql agricom

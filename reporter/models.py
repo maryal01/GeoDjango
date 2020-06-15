@@ -15,6 +15,9 @@ class HUC4(models.Model):
     tnmid = models.CharField(max_length=255, null=False, unique=True)
     huc4_id = models.CharField(max_length=4, null=False, unique=True) 
     huc2 = models.ForeignKey(HUC2, related_name="huc4", on_delete=models.PROTECT)
+    
+    def search_point(self):
+        
 
 class HUC6(models.Model):
     geometry = models.MultiPolygonField()

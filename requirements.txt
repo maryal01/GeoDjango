@@ -1,5 +1,7 @@
 django
 django-leaflet
+gunicorn
 djangorestframework
+django-heroku
 geopandas
 psycog2

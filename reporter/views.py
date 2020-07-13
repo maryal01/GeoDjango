@@ -28,6 +28,7 @@ def handle_points(request):
         lat = point["north"]
         point_data = GEOSGeometry(Point(lat, long).wkt)
         huc = HUC8.objects.filter(geometry__contains=point_data)
+        pprint([h.huc_id for h in huc])
         if len(huc) == 1:
             answer.append({"HUC8 ID": huc.first().huc_id})
         else:
@@ -36,8 +37,64 @@ def handle_points(request):
 
 @csrf_exempt
 def handle_polygon(request):
-    JsonResponse({"point": 3})
+    json_data = json.loads(request.body.decode('utf-8'))
+    high_lat = json_data.get("northlimit")
+    low_lat = json_data.get("southlimit")
+    high_long = json_data.get("eastlimit")
+    low_long = json_data.get("westlimit")
+    rectangle = GEOSGeometry('POLYGON((%s %s, %s %s, %s %s, %s %s, %s %s))' % 
+                (high_lat, high_long, high_lat, low_long, low_lat, low_long, low_lat, high_long, high_lat,high_long))
+    huc4_lists = HUC4.objects.filter(geometry__intersects=rectangle)
+    huc6_lists = []
+    huc8_lists = []
+    if len(huc4_lists) <= 5:
+        for huc in huc4_lists:
+            huc6_lists.append( huc.huc6.objects.filter(geometry__contains=rectangle) )
+    else:
+        return JsonResponse({"HUC4 ID": [huc.huc_id for huc in huc4_lists]})
+    
+    if len(huc6_lists) <= 5:
+        for huc in huc6_lists:
+            huc8_lists.append(huc.huc8.objects.filter(geometry_contains=rectangle))
+    else:
+        return JsonResponse({"HUC6 ID": [huc.huc_id for huc in huc6_lists]})
+    
+    if huc8_lists:
+        return JsonResponse({"HUC8 ID": [huc.huc_id for huc in huc8_lists]})
+    else:
+        return JsonResponse({"message": "Could not find the HUC ID of the polygon"})
 
 @csrf_exempt
 def handle_polygons(request):
-    JsonResponse({"point": 3})
+    json_data = json.loads(request.body.decode('utf-8'))
+    list_polygons = json_data.get("list_points")
+    answer = []
+    for polygon in list_polygons:
+        high_lat = polygon["northlimit"]
+        low_lat = polygon["southlimit"]
+        high_long = polygon["eastlimit"]
+        low_long = polygon["westlimit"]
+        rectangle = GEOSGeometry('POLYGON((%s %s, %s %s, %s %s, %s %s, %s %s))' % 
+                    (high_lat, high_long, high_lat, low_long, low_lat, low_long, low_lat, high_long, high_lat,high_long))
+        huc4_lists = HUC4.objects.filter(geometry__intersects=rectangle)
+        huc6_lists = []
+        huc8_lists = []
+        if len(huc4_lists) <= 5:
+            for huc in huc4_lists:
+                huc6_lists.append( huc.huc6.objects.filter(geometry__contains=rectangle) )
+        else:
+            answer.append({"HUC4 ID": [huc.huc_id for huc in huc4_lists]})
+            continue
+        
+        if len(huc6_lists) <= 5:
+            for huc in huc6_lists:
+                huc8_lists.append(huc.huc8.objects.filter(geometry_contains=rectangle))
+        else:
+            answer.append({"HUC6 ID": [huc.huc_id for huc in huc6_lists]})
+            continue
+        
+        if huc8_lists:
+            answer.append({"HUC8 ID": [huc.huc_id for huc in huc8_lists]})
+        else:
+            answer.append({"message": "Could not find the HUC ID of the polygon"})
+    return JsonResponse({"list_polygons": answer})

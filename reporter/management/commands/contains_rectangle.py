@@ -23,7 +23,7 @@ class Command(BaseCommand):
 
         start = time.time()
         list_huc4s = []
-        rectangle = GEOSGeometry('POLYGON((%s %s, %s %s, %s %s, %s %s, %s %s))' % (high_lat,high_long, high_lat, low_long, low_lat, low_long, low_lat, high_long, high_lat,high_long))
+        rectangle = GEOSGeometry('POLYGON((%s %s, %s %s, %s %s, %s %s, %s %s))' % (high_lat, high_long, high_lat, low_long, low_lat, low_long, low_lat, high_long, high_lat,high_long))
         
         huc2_object = HUC2.objects.filter(geometry__contains=rectangle).first()
         try:

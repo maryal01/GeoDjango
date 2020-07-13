@@ -1,5 +1,5 @@
 django
 django-leaflet
+djangorestframework
 geopandas
 psycog2
-

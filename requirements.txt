@@ -1,6 +1,6 @@
+gunicorn
 django
 django-leaflet
-gunicorn
 djangorestframework
 django-heroku
 geopandas

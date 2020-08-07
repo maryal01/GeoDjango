@@ -4,4 +4,4 @@ gunicorn
 djangorestframework
 django-heroku
 geopandas
-psycog2
+psycopg2

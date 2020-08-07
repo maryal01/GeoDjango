@@ -7,6 +7,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+GDAL_LIBRARY_PATH=os.environ.get('GDAL_LIBRARY_PATH')
 SECRET_KEY = '9g80!d_un#x&jw=%h4##8*-lb0s4d0%fb1gt2qt-^$j5o+&u9k'
 DEBUG = True
 ALLOWED_HOSTS = []

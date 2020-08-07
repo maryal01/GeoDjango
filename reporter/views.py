@@ -6,6 +6,9 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from pprint import pprint
 
+def index(request):
+    return JsonResponse({"Test": "Home page"})
+
 @csrf_exempt
 def handle_point(request):
     json_data = json.loads(request.body.decode('utf-8'))

@@ -20,7 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'leaflet',
+ #   'leaflet',
     'reporter'
 ]
 
@@ -88,13 +88,13 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-LEAFLET_CONFIG = {
-    'DEFAULT_CENTER': (-.023, 36.87),
-    'DEFAULT_ZOOM': 5,
-    'MAX_ZOOM': 20,
-    'MIN_ZOOM':3,
-    'SCALE': 'both',
-    'ATTRIBUTION_PREFIX': 'Inspired by Life in GIS'
-}
+#LEAFLET_CONFIG = {
+#    'DEFAULT_CENTER': (-.023, 36.87),
+#    'DEFAULT_ZOOM': 5,
+#    'MAX_ZOOM': 20,
+#    'MIN_ZOOM':3,
+#    'SCALE': 'both',
+#    'ATTRIBUTION_PREFIX': 'Inspired by Life in GIS'
+#}
 
 django_heroku.settings(locals())

@@ -63,7 +63,6 @@ WSGI_APPLICATION = 'agricom.wsgi.application'
 
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -97,6 +96,7 @@ USE_TZ = True
 #}
 
 django_heroku.settings(locals())
-# This is new
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+
 options = DATABASES['default'].get('OPTIONS', {})
 options.pop('sslmode', None)

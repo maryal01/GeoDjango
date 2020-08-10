@@ -12,8 +12,8 @@ def index(request):
 @csrf_exempt
 def handle_point(request):
     json_data = json.loads(request.body.decode('utf-8'))
-    long=json_data.get("east")
-    lat= json_data.get("north")
+    long=json_data.get("longitude")
+    lat= json_data.get("latitude")
     point = GEOSGeometry(Point(lat, long).wkt)
     huc = HUC8.objects.filter(geometry__contains=point)
     if len(huc) == 1:
@@ -27,8 +27,8 @@ def handle_points(request):
     list_points = json_data.get("list_points")
     answer = []
     for point in list_points:
-        long = point["east"]
-        lat = point["north"]
+        long = point["longitude"]
+        lat = point["latitude"]
         point_data = GEOSGeometry(Point(lat, long).wkt)
         huc = HUC8.objects.filter(geometry__contains=point_data)
         pprint([h.huc_id for h in huc])
@@ -41,10 +41,10 @@ def handle_points(request):
 @csrf_exempt
 def handle_polygon(request):
     json_data = json.loads(request.body.decode('utf-8'))
-    high_lat = json_data.get("northlimit")
-    low_lat = json_data.get("southlimit")
-    high_long = json_data.get("eastlimit")
-    low_long = json_data.get("westlimit")
+    high_lat = json_data.get("high_latitude")
+    low_lat = json_data.get("low_latitude")
+    high_long = json_data.get("high_longitude")
+    low_long = json_data.get("low_longitdue")
     rectangle = GEOSGeometry('POLYGON((%s %s, %s %s, %s %s, %s %s, %s %s))' % 
                 (high_lat, high_long, high_lat, low_long, low_lat, low_long, low_lat, high_long, high_lat,high_long))
     huc4_lists = HUC4.objects.filter(geometry__intersects=rectangle)
@@ -73,10 +73,10 @@ def handle_polygons(request):
     list_polygons = json_data.get("list_points")
     answer = []
     for polygon in list_polygons:
-        high_lat = polygon["northlimit"]
-        low_lat = polygon["southlimit"]
-        high_long = polygon["eastlimit"]
-        low_long = polygon["westlimit"]
+        high_lat = polygon["high_latitude"]
+        low_lat = polygon["low_latitude"]
+        high_long = polygon["high_longitude"]
+        low_long = polygon["low_longitude"]
         rectangle = GEOSGeometry('POLYGON((%s %s, %s %s, %s %s, %s %s, %s %s))' % 
                     (high_lat, high_long, high_lat, low_long, low_lat, low_long, low_lat, high_long, high_lat,high_long))
         huc4_lists = HUC4.objects.filter(geometry__intersects=rectangle)

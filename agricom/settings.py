@@ -1,3 +1,5 @@
+import dj_database_url
+import dotenv
 import os
 import django_heroku
 
@@ -7,6 +9,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+	dotenv.load_dotenv(dotenv_file)
+
 GDAL_LIBRARY_PATH=os.environ.get('GDAL_LIBRARY_PATH')
 SECRET_KEY = '9g80!d_un#x&jw=%h4##8*-lb0s4d0%fb1gt2qt-^$j5o+&u9k'
 DEBUG = True
@@ -20,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
- #   'leaflet',
+   'leaflet',
     'reporter'
 ]
 
@@ -29,6 +35,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -54,17 +61,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'agricom.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'agricom',
-        'USER': 'postgres',
-        'HOST': 'localhost',
-        'PASSWORD': 'postgres',
-        'PORT': '5432',
-    }
-}
-
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -98,3 +97,6 @@ USE_TZ = True
 #}
 
 django_heroku.settings(locals())
+# This is new
+options = DATABASES['default'].get('OPTIONS', {})
+options.pop('sslmode', None)

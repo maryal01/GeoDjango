@@ -44,7 +44,7 @@ def handle_polygon(request):
     high_lat = json_data.get("high_latitude")
     low_lat = json_data.get("low_latitude")
     high_long = json_data.get("high_longitude")
-    low_long = json_data.get("low_longitdue")
+    low_long = json_data.get("low_longitude")
     rectangle = GEOSGeometry('POLYGON((%s %s, %s %s, %s %s, %s %s, %s %s))' % 
                 (high_lat, high_long, high_lat, low_long, low_lat, low_long, low_lat, high_long, high_lat,high_long))
     huc4_lists = HUC4.objects.filter(geometry__intersects=rectangle)

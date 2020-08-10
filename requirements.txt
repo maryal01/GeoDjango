@@ -1,8 +1,8 @@
+gunicorn
 django
 django-leaflet
-gunicorn
 djangorestframework
 django-heroku
 geopandas
-psycog2
+psycopg2
 python-dotenv

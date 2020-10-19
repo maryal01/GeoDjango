@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.gis.db import models
-from django.db.models import Manager as GeoManager
 
 class HUC2(models.Model):
     geometry = models.MultiPolygonField()

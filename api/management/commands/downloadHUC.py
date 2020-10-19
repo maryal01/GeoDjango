@@ -10,9 +10,9 @@ state_names = ["Alaska", "Alabama", "Arkansas", "American_Samoa", "Arizona", "Ca
 "New_Mexico", "Nevada", "New_York", "Northern_Mariana_Islands","Ohio", "Oklahoma", "Oregon", "Pennsylvania", 
 "Puerto_Rico", "Rhode_Island", "South_Carolina", "South_Dakota", "Tennessee", "Texas", "Utah", "Virginia", 
 "United_States_Virgin_Islands", "Vermont", "Washington", "Wisconsin", "West_Virginia", "Wyoming"]
-
+#test_state_names = ["American_Samoa", "United_States_Virgin_Islands", "Commonwealth_of_the_Northern_Mariana_Islands", "District_of_Columbia", "Northern_Mariana_Islands"]
 cwd = os.getcwd()
-extension = "jpg"
+extension = "zip"
 directory = "state-files"
 path = os.path.join(cwd, directory)
 if not os.path.exists(path):
@@ -31,7 +31,7 @@ for state in state_names:
     f.close()
 
     z = zipfile.ZipFile(file_path)
-    z.extractall(extract_path)z
+    z.extractall(extract_path)
     z.close()
 
     os.remove(file_path)

@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
 from django.apps import AppConfig
 
-class APIConfig(AppConfig):
+class ApiConfig(AppConfig):
     name = 'api'

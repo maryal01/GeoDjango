@@ -3,5 +3,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('reporter.urls')),
+    url(r'^find_huc/', include('api.urls')),
 ]

@@ -1,9 +1,9 @@
 from django.core.management.base import BaseCommand, CommandError
-from reporter.models import HUC2, HUC4, HUC6, HUC8
-import os
-import geopandas as gp
+from api.models import HUC2, HUC4, HUC6, HUC8
 from shapely.geometry import MultiPolygon
 from django.contrib.gis.geos import GEOSGeometry 
+import geopandas as gp
+import os
 class Command(BaseCommand):
     def handle(self, *args, **options):
         state_names = ["Alaska", "Alabama", "Arkansas", "American_Samoa", "Arizona", "California", 
@@ -18,7 +18,7 @@ class Command(BaseCommand):
         
         levels = { 2 : HUC2, 4 : HUC4, 6 : HUC6, 8 : HUC8 }
         for hnum in levels.keys():
-            for state in test_state_names:
+            for state in state_names:
                 path = os.path.join('state-files', state, "Shape/WBDHU{}.shp".format(hnum))
                 gdf = gp.read_file(path)
                 for _, rows in gdf.iterrows():
@@ -27,12 +27,10 @@ class Command(BaseCommand):
                     geometry = rows["geometry"]
                     geometry = MultiPolygon([geometry]) if geometry.type == 'Polygon' else geometry
                     multi_polygon = GEOSGeometry(geometry.wkt)
-                    print("{}".format(name))
+                    print(name)
                     if hnum == 2:
-                        print("Proceeding to save the huc 2 id")
                         huc = HUC2(name=name, geometry = multi_polygon, huc_id=huc_id, tnmid=tnmid)
                         huc.save()
-                        print("Saved the huc 2 id")
                     else:
                         try:
                             lower_huc = levels[hnum - 2].objects.get(huc_id = huc_id[0 : hnum - 2])   

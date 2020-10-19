@@ -2,9 +2,6 @@
 To set up the project, follow the steps;
 ```
 sudo brew install postgresql postgresql-contrib \ postgis
-
-download WBD shapefiles and add it to the ./alva_geodjango directory
-link [ https://tufts.box.com/s/31sr5my3k21xhfkxm6d7jj5li0fa3ai2 ]
 ```
 ## On a Virtual Environment
 ```

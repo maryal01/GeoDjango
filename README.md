@@ -65,6 +65,8 @@ and polygon is defined as,
 }
 ```
 
-let $x,y,z \in (polygon, point)$ then the json object expected is
+let x, y, z \belongs {polygon, point} then the json object expected by the server is
 
-``` { resource_list: [ x, y, z ] } ```
+``` 
+{ resource_list: [ x, y, z ] } 
+```

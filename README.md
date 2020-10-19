@@ -2,9 +2,6 @@
 To set up the project, follow the steps;
 ```
 sudo brew install postgresql postgresql-contrib \ postgis
-
-download WBD shapefiles and add it to the ./alva_geodjango directory
-link [ https://tufts.box.com/s/31sr5my3k21xhfkxm6d7jj5li0fa3ai2 ]
 ```
 ## On a Virtual Environment
 ```
@@ -55,7 +52,7 @@ where point is defined as,
 ```
 
 and polygon is defined as,
-````
+```
 {
     lower latitude,
     higher latitude,
@@ -64,5 +61,9 @@ and polygon is defined as,
     type: "BOX"
 }
 ```
-let $x,y,z \in (polygon, point)$ then the json object expected is
-``` { resource_list: [ x, y, z ] } ```
+
+let x, y, z \belongs {polygon, point} then the json object expected by the server is
+
+``` 
+{ resource_list: [ x, y, z ] } 
+```

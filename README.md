@@ -55,7 +55,7 @@ where point is defined as,
 ```
 
 and polygon is defined as,
-````
+```
 {
     lower latitude,
     higher latitude,
@@ -64,5 +64,7 @@ and polygon is defined as,
     type: "BOX"
 }
 ```
+
 let $x,y,z \in (polygon, point)$ then the json object expected is
+
 ``` { resource_list: [ x, y, z ] } ```

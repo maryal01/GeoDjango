@@ -1,14 +1,10 @@
 import dj_database_url
 import dotenv
 import os
-import django_heroku
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
 dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
 	dotenv.load_dotenv(dotenv_file)
@@ -26,8 +22,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-   'leaflet',
-    'reporter'
+    'rest_framework',
+    'leaflet',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -63,7 +60,6 @@ WSGI_APPLICATION = 'agricom.wsgi.application'
 
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -86,17 +82,7 @@ TIME_ZONE = 'America/New_York'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
-#LEAFLET_CONFIG = {
-#    'DEFAULT_CENTER': (-.023, 36.87),
-#    'DEFAULT_ZOOM': 5,
-#    'MAX_ZOOM': 20,
-#    'MIN_ZOOM':3,
-#    'SCALE': 'both',
-#    'ATTRIBUTION_PREFIX': 'Inspired by Life in GIS'
-#}
-
-django_heroku.settings(locals())
-# This is new
 options = DATABASES['default'].get('OPTIONS', {})
 options.pop('sslmode', None)

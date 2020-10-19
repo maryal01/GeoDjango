@@ -1,7 +1,7 @@
+.gitignore
+db.sqlite3
 WBD_shapefiles/
 state-files/
 .ipynb_checkpoints/
 .env
 .DS_Store
-.gitignore
-db.sqlite3
